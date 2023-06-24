@@ -40,6 +40,26 @@ const (
 	encryptionMethodPSKTKIPCCMP          = "psk+tkip+ccmp"
 	encryptionMethodSAE                  = "sae"
 	encryptionMethodSAEMixed             = "sae-mixed"
+	encryptionMethodWPAMixed             = "wpa-mixed"
+	encryptionMethodWPAMixedAES          = "wpa-mixed+aes"
+	encryptionMethodWPAMixedCCMP         = "wpa-mixed+ccmp"
+	encryptionMethodWPAMixedTKIP         = "wpa-mixed+tkip"
+	encryptionMethodWPAMixedTKIPAES      = "wpa-mixed+tkip+aes"
+	encryptionMethodWPAMixedTKIPCCMP     = "wpa-mixed+tkip+ccmp"
+	encryptionMethodWPA                  = "wpa"
+	encryptionMethodWPAAES               = "wpa+aes"
+	encryptionMethodWPACCMP              = "wpa+ccmp"
+	encryptionMethodWPATKIP              = "wpa+tkip"
+	encryptionMethodWPATKIPAES           = "wpa+tkip+aes"
+	encryptionMethodWPATKIPCCMP          = "wpa+tkip+ccmp"
+	encryptionMethodWPA2                 = "wpa2"
+	encryptionMethodWPA2AES              = "wpa2+aes"
+	encryptionMethodWPA2CCMP             = "wpa2+ccmp"
+	encryptionMethodWPA2TKIP             = "wpa2+tkip"
+	encryptionMethodWPA2TKIPAES          = "wpa2+tkip+aes"
+	encryptionMethodWPA2TKIPCCMP         = "wpa2-mixed+tkip+ccmp"
+	encryptionMethodWPA3                 = "wpa3"
+	encryptionMethodWPA3Mixed            = "wpa3-mixed"
 	encryptionMethodUCIOption            = "encryption"
 
 	isolateClientsAttribute            = "isolate"
@@ -117,6 +137,26 @@ var (
 				encryptionMethodPSKTKIPCCMP,
 				encryptionMethodSAE,
 				encryptionMethodSAEMixed,
+				encryptionMethodWPAMixed,
+				encryptionMethodWPAMixedAES,
+				encryptionMethodWPAMixedCCMP,
+				encryptionMethodWPAMixedTKIP,
+				encryptionMethodWPAMixedTKIPAES,
+				encryptionMethodWPAMixedTKIPCCMP,
+				encryptionMethodWPA,
+				encryptionMethodWPAAES,
+				encryptionMethodWPACCMP,
+				encryptionMethodWPATKIP,
+				encryptionMethodWPATKIPAES,
+				encryptionMethodWPATKIPCCMP,
+				encryptionMethodWPA2,
+				encryptionMethodWPA2AES,
+				encryptionMethodWPA2CCMP,
+				encryptionMethodWPA2TKIP,
+				encryptionMethodWPA2TKIPAES,
+				encryptionMethodWPA2TKIPCCMP,
+				encryptionMethodWPA3,
+				encryptionMethodWPA3Mixed,
 			),
 		},
 	}
