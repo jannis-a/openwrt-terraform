@@ -1,6 +1,7 @@
 package wifiiface
 
 import (
+	"github.com/hashicorp/terraform-plugin-framework-validators/listvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/path"
@@ -67,6 +68,14 @@ const (
 	ssidAttribute            = "ssid"
 	ssidAttributeDescription = "The broadcasted SSID of the wireless network. This is what actual clients will see the network as."
 	ssidUCIOption            = "ssid"
+
+	macFilterAttribute            = "macfilter"
+	macFilterAttributeDescription = "Specifies the MAC filter policy, `disable` to disable the filter, `allow` to treat it as whitelist or `deny` to treat it as blacklist."
+	macFilterUCIOption            = "macfilter"
+
+	macListAttribute            = "maclist"
+	macListAttributeDescription = "List of MAC addresses to put into the mac filter."
+	macListUCIOption            = "maclist"
 
 	uciConfig = "wireless"
 	uciType   = "wifi-iface"
@@ -179,6 +188,8 @@ var (
 		modeAttribute:             modeSchemaAttribute,
 		networkAttribute:          networkSchemaAttribute,
 		ssidAttribute:             ssidSchemaAttribute,
+		macFilterAttribute:        macFilterSchemaAttribute,
+		macListAttribute:          macListSchemaAttribute,
 	}
 
 	ssidSchemaAttribute = lucirpcglue.StringSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
@@ -186,6 +197,23 @@ var (
 		ReadResponse:      lucirpcglue.ReadResponseOptionString(modelSetSSID, ssidAttribute, ssidUCIOption),
 		ResourceExistence: lucirpcglue.Required,
 		UpsertRequest:     lucirpcglue.UpsertRequestOptionString(modelGetSSID, ssidAttribute, ssidUCIOption),
+	}
+
+	macFilterSchemaAttribute = lucirpcglue.StringSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:       macFilterAttributeDescription,
+		ReadResponse:      lucirpcglue.ReadResponseOptionString(modelSetMacFilter, macFilterAttribute, macFilterUCIOption),
+		ResourceExistence: lucirpcglue.NoValidation,
+		UpsertRequest:     lucirpcglue.UpsertRequestOptionString(modelGetMacFilter, macFilterAttribute, macFilterUCIOption),
+	}
+
+	macListSchemaAttribute = lucirpcglue.ListStringSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:       macListAttributeDescription,
+		ReadResponse:      lucirpcglue.ReadResponseOptionListString(modelSetMacList, macListAttribute, macListUCIOption),
+		ResourceExistence: lucirpcglue.NoValidation,
+		UpsertRequest:     lucirpcglue.UpsertRequestOptionListString(modelGetMacList, macListAttribute, macListUCIOption),
+		Validators: []validator.List{
+			listvalidator.SizeAtLeast(1),
+		},
 	}
 )
 
@@ -219,6 +247,8 @@ type model struct {
 	Mode             types.String `tfsdk:"mode"`
 	Network          types.String `tfsdk:"network"`
 	SSID             types.String `tfsdk:"ssid"`
+	MacFilter        types.String `tfsdk:"macfilter"`
+	MacList          types.List   `tfsdk:"maclist"`
 }
 
 func modelGetDevice(m model) types.String           { return m.Device }
@@ -230,6 +260,8 @@ func modelGetKRACKWorkaround(m model) types.Bool    { return m.KRACKWorkaround }
 func modelGetMode(m model) types.String             { return m.Mode }
 func modelGetNetwork(m model) types.String          { return m.Network }
 func modelGetSSID(m model) types.String             { return m.SSID }
+func modelGetMacFilter(m model) types.String        { return m.MacFilter }
+func modelGetMacList(m model) types.List            { return m.MacList }
 
 func modelSetDevice(m *model, value types.String)           { m.Device = value }
 func modelSetEncryptionMethod(m *model, value types.String) { m.EncryptionMethod = value }
@@ -240,3 +272,5 @@ func modelSetKRACKWorkaround(m *model, value types.Bool)    { m.KRACKWorkaround 
 func modelSetMode(m *model, value types.String)             { m.Mode = value }
 func modelSetNetwork(m *model, value types.String)          { m.Network = value }
 func modelSetSSID(m *model, value types.String)             { m.SSID = value }
+func modelSetMacFilter(m *model, value types.String)        { m.MacFilter = value }
+func modelSetMacList(m *model, value types.List)            { m.MacList = value }
