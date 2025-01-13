@@ -12,21 +12,21 @@ import (
 
 const (
 	deviceAttribute            = "device"
-	deviceAttributeDescription = "The switch to configure."
+	deviceAttributeDescription = "The bridge to configure."
 	deviceUCIOption            = "device"
 
 	portsAttribute            = "ports"
-	portsAttributeDescription = "A string of space-separated port indicies that should be associated with the VLAN. Adding the suffix `\"t\"` to a port indicates that egress packets should be tagged, for example `\"0 1 3t 5t\"`."
+	portsAttributeDescription = "A list of port names that should be associated with the VLAN. Adding the suffix `\":t\"` to a port indicates that egress packets should be tagged, for example `\"[\"lan1:t\", \"lan2:t\"]\"`."
 	portsUCIOption            = "ports"
 
-	schemaDescription = "Legacy VLAN configuration"
+	vLanAttribute            = "vlan"
+	vLanAttributeDescription = `The VLAN tag value`
+	vLanUCIOption            = "vlan"
+
+	schemaDescription = "Bridge VLAN configuration"
 
 	uciConfig = "network"
 	uciType   = "bridge-vlan"
-
-	vLanAttribute            = "vlan"
-	vLanAttributeDescription = `The VLAN "table index" to configure. This index corresponds to the order on LuCI's UI`
-	vLanUCIOption            = "vlan"
 )
 
 var (

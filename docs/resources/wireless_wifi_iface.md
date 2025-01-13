@@ -40,7 +40,12 @@ resource "openwrt_wireless_wifi_iface" "home" {
   mode                          = "ap"
   network                       = openwrt_network_interface.home.id
   ssid                          = "home"
-  wpa_disable_eapol_key_retries = true
+  wpa_disable_eapol_key_retries = true 
+	macfilter                     = "allow"
+	maclist = [
+		"00:01:02:03:04:05",
+		"05:04:03:02:01:00",
+	]
 }
 ```
 
@@ -60,6 +65,8 @@ resource "openwrt_wireless_wifi_iface" "home" {
 - `id` (String) Name of the section. This name is only used when interacting with UCI directly.
 - `isolate` (Boolean) Isolate wireless clients from each other.
 - `key` (String, Sensitive) The pre-shared passphrase from which the pre-shared key will be derived. The clear text key has to be 8-63 characters long.
+- `macfilter` (String) Specifies the MAC filter policy, `disable` to disable the filter, `allow` to treat it as whitelist or `deny` to treat it as blacklist.
+- `maclist` (List of String) List of MAC addresses to put into the mac filter.
 - `wpa_disable_eapol_key_retries` (Boolean) Enable WPA key reinstallation attack (KRACK) workaround. This should be `true` to enable KRACK workaround (you almost surely want this enabled).
 
 ## Import

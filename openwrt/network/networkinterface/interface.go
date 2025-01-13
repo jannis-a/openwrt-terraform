@@ -49,7 +49,7 @@ const (
 	macAddressUCIOption            = "macaddr"
 
 	metricAttribute            = "metric"
-	metricAttributeDescription = "Override the default MTU on this interface."
+	metricAttributeDescription = "Set the metric value for this interface for routing priority."
 	metricUCIOption            = "metric"
 
 	mtuAttribute            = "mtu"

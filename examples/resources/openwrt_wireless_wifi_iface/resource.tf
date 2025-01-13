@@ -25,5 +25,10 @@ resource "openwrt_wireless_wifi_iface" "home" {
   mode                          = "ap"
   network                       = openwrt_network_interface.home.id
   ssid                          = "home"
-  wpa_disable_eapol_key_retries = true
+  wpa_disable_eapol_key_retries = true 
+	macfilter                     = "allow"
+	maclist = [
+		"00:01:02:03:04:05",
+		"05:04:03:02:01:00",
+	]
 }

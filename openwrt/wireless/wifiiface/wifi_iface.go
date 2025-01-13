@@ -92,6 +92,9 @@ const (
 	macFilterAttribute            = "macfilter"
 	macFilterAttributeDescription = "Specifies the MAC filter policy, `disable` to disable the filter, `allow` to treat it as whitelist or `deny` to treat it as blacklist."
 	macFilterUCIOption            = "macfilter"
+	macFilterMethodDisable        = "disable"
+	macFilterMethodAllow          = "allow"
+	macFilterMethodDeny           = "deny"
 
 	macListAttribute            = "maclist"
 	macListAttributeDescription = "List of MAC addresses to put into the mac filter."
@@ -244,6 +247,13 @@ var (
 		ReadResponse:      lucirpcglue.ReadResponseOptionString(modelSetMacFilter, macFilterAttribute, macFilterUCIOption),
 		ResourceExistence: lucirpcglue.NoValidation,
 		UpsertRequest:     lucirpcglue.UpsertRequestOptionString(modelGetMacFilter, macFilterAttribute, macFilterUCIOption),
+		Validators: []validator.String{
+			stringvalidator.OneOf(
+				macFilterMethodDisable,
+				macFilterMethodAllow,
+				macFilterMethodDeny,
+			),
+		},
 	}
 
 	macListSchemaAttribute = lucirpcglue.ListStringSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{

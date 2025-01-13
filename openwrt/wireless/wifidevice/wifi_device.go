@@ -28,7 +28,7 @@ const (
 	cellDensityVeryHigh             = 3
 
 	channelAttribute            = "channel"
-	channelAttributeDescription = `The wireless channel. Currently, only "auto" is supported.`
+	channelAttributeDescription = `The wireless channel.`
 	channelAuto                 = "auto"
 	channel1                    = "1"
 	channel2                    = "2"

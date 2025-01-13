@@ -20,9 +20,9 @@ jobs:
       - name: Fetch tags
         run: git fetch --force --tags
       - name: Install Nix
-        uses: cachix/install-nix-action@v19
+        uses: cachix/install-nix-action@v30
       - name: Cache Nix
-        uses: actions/cache@v3.3.0
+        uses: actions/cache@v4.2.0
         with:
           key: ${{ runner.os }}-nix-${{ hashfiles('flake.lock', 'flake.nix') }}
           path: ~/nix
@@ -30,7 +30,7 @@ jobs:
             ${{ runner.os }}-nix-${{ hashfiles('flake.lock', 'flake.nix') }}
             ${{ runner.os }}-nix-
       - name: Cache Go
-        uses: actions/cache@v3.3.0
+        uses: actions/cache@v4.2.0
         with:
           # We hash both `go.mod` in addition to `go.sum` because the version of go is only in `go.mod`.
           key: ${{ runner.os }}-go-${{ hashfiles('go.mod', 'go.sum') }}

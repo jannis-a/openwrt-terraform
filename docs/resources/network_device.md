@@ -38,10 +38,10 @@ resource "openwrt_network_device" "br_testing" {
 - `bridge_empty` (Boolean) Bring up the bridge device even if no ports are attached
 - `dadtransmits` (Number) Amount of Duplicate Address Detection probes to send
 - `id` (String) Name of the section. This name is only used when interacting with UCI directly.
-- `ifname` (String) Specifies the wired ports to attach to this bridge.
+- `ifname` (String) Specifies the wired port to attach to this macvlan device.
 - `ipv6` (Boolean) Enable IPv6 for the device.
 - `macaddr` (String) MAC Address of the device.
-- `mode` (String) Specifies the wired ports to attach to this bridge.
+- `mode` (String) Mode to use for macvlan devices.
 - `mtu` (Number) Maximum Transmissible Unit.
 - `mtu6` (Number) Maximum Transmissible Unit for IPv6.
 - `ports` (Set of String) Specifies the wired ports to attach to this bridge.

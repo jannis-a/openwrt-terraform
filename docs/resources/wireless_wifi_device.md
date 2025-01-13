@@ -26,7 +26,7 @@ resource "openwrt_wireless_wifi_device" "five_ghz" {
 
 ### Required
 
-- `channel` (String) The wireless channel. Currently, only "auto" is supported.
+- `channel` (String) The wireless channel.
 - `type` (String) The type of device. Currently only "mac80211" is supported.
 
 ### Optional

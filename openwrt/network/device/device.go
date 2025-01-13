@@ -17,11 +17,11 @@ import (
 
 const (
 	modeAttribute            = "mode"
-	modeAttributeDescription = "Specifies the wired ports to attach to this bridge."
+	modeAttributeDescription = "Mode to use for macvlan devices."
 	modeUCIOption            = "mode"
 
 	ifnameAttribute            = "ifname"
-	ifnameAttributeDescription = "Specifies the wired ports to attach to this bridge."
+	ifnameAttributeDescription = "Specifies the wired port to attach to this macvlan device."
 	ifnameUCIOption            = "ifname"
 
 	bridgePortsAttribute            = "ports"
