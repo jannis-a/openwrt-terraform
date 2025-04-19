@@ -21,7 +21,12 @@ import (
 	"github.com/joneshf/terraform-provider-openwrt/openwrt/dhcp/domain"
 	"github.com/joneshf/terraform-provider-openwrt/openwrt/dhcp/host"
 	"github.com/joneshf/terraform-provider-openwrt/openwrt/dhcp/odhcpd"
+	"github.com/joneshf/terraform-provider-openwrt/openwrt/firewall/forwarding"
+	"github.com/joneshf/terraform-provider-openwrt/openwrt/firewall/redirect"
+	"github.com/joneshf/terraform-provider-openwrt/openwrt/firewall/rule"
+	"github.com/joneshf/terraform-provider-openwrt/openwrt/firewall/zone"
 	"github.com/joneshf/terraform-provider-openwrt/openwrt/internal/lucirpcglue"
+	"github.com/joneshf/terraform-provider-openwrt/openwrt/network/bridgevlan"
 	"github.com/joneshf/terraform-provider-openwrt/openwrt/network/device"
 	"github.com/joneshf/terraform-provider-openwrt/openwrt/network/globals"
 	"github.com/joneshf/terraform-provider-openwrt/openwrt/network/networkinterface"
@@ -162,19 +167,24 @@ func (p *openWrtProvider) DataSources(
 	ctx context.Context,
 ) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
+		bridgevlan.NewDataSource,
 		device.NewDataSource,
 		dhcp.NewDataSource,
 		dnsmasq.NewDataSource,
 		domain.NewDataSource,
+		forwarding.NewDataSource,
 		globals.NewDataSource,
 		host.NewDataSource,
 		networkinterface.NewDataSource,
 		networkswitch.NewDataSource,
 		odhcpd.NewDataSource,
 		switchvlan.NewDataSource,
+		rule.NewDataSource,
 		system.NewDataSource,
 		wifidevice.NewDataSource,
 		wifiiface.NewDataSource,
+		zone.NewDataSource,
+		redirect.NewDataSource,
 	}
 }
 
@@ -193,19 +203,24 @@ func (p *openWrtProvider) Resources(
 	ctx context.Context,
 ) []func() resource.Resource {
 	return []func() resource.Resource{
+		bridgevlan.NewResource,
 		device.NewResource,
 		dhcp.NewResource,
 		dnsmasq.NewResource,
 		domain.NewResource,
+		forwarding.NewResource,
 		globals.NewResource,
 		host.NewResource,
 		networkinterface.NewResource,
 		networkswitch.NewResource,
 		odhcpd.NewResource,
+		rule.NewResource,
 		switchvlan.NewResource,
 		system.NewResource,
 		wifidevice.NewResource,
 		wifiiface.NewResource,
+		zone.NewResource,
+		redirect.NewResource,
 	}
 }
 

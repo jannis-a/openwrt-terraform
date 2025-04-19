@@ -43,7 +43,6 @@ resource "openwrt_network_interface" "testing" {
 ### Required
 
 - `device` (String) Name of the (physical or virtual) device. This name is what the device is known as in LuCI or the `name` field in Terraform. This is not the UCI config name.
-- `id` (String) Name of the section. This name is only used when interacting with UCI directly.
 - `proto` (String) The protocol type of the interface. Currently, only "dhcp, and "static" are supported.
 
 ### Optional
@@ -52,9 +51,11 @@ resource "openwrt_network_interface" "testing" {
 - `disabled` (Boolean) Disables this interface.
 - `dns` (List of String) DNS servers
 - `gateway` (String) Gateway of the interface
+- `id` (String) Name of the section. This name is only used when interacting with UCI directly.
 - `ip6assign` (Number) Delegate a prefix of given length to this interface
 - `ipaddr` (String) IP address of the interface
 - `macaddr` (String) Override the MAC Address of this interface.
+- `metric` (Number) Set the metric value for this interface for routing priority.
 - `mtu` (Number) Override the default MTU on this interface.
 - `netmask` (String) Netmask of the interface
 - `peerdns` (Boolean) Use DHCP-provided DNS servers.

@@ -103,6 +103,11 @@ resource "openwrt_wireless_wifi_iface" "testing" {
 	network = "network-testing"
 	ssid = "ssid-testing"
 	wpa_disable_eapol_key_retries = true
+	macfilter = "allow"
+	maclist = [
+		"00:01:02:03:04:05",
+		"05:04:03:02:01:00",
+	]
 }
 `,
 			providerBlock,
@@ -116,6 +121,9 @@ resource "openwrt_wireless_wifi_iface" "testing" {
 			resource.TestCheckResourceAttr("openwrt_wireless_wifi_iface.testing", "network", "network-testing"),
 			resource.TestCheckResourceAttr("openwrt_wireless_wifi_iface.testing", "ssid", "ssid-testing"),
 			resource.TestCheckResourceAttr("openwrt_wireless_wifi_iface.testing", "wpa_disable_eapol_key_retries", "true"),
+			resource.TestCheckResourceAttr("openwrt_wireless_wifi_iface.testing", "macfilter", "allow"),
+			resource.TestCheckResourceAttr("openwrt_wireless_wifi_iface.testing", "maclist.0", "00:01:02:03:04:05"),
+			resource.TestCheckResourceAttr("openwrt_wireless_wifi_iface.testing", "maclist.1", "05:04:03:02:01:00"),
 		),
 	}
 

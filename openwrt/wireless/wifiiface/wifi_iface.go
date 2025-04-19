@@ -1,6 +1,7 @@
 package wifiiface
 
 import (
+	"github.com/hashicorp/terraform-plugin-framework-validators/listvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/path"
@@ -39,6 +40,26 @@ const (
 	encryptionMethodPSKTKIPCCMP          = "psk+tkip+ccmp"
 	encryptionMethodSAE                  = "sae"
 	encryptionMethodSAEMixed             = "sae-mixed"
+	encryptionMethodWPAMixed             = "wpa-mixed"
+	encryptionMethodWPAMixedAES          = "wpa-mixed+aes"
+	encryptionMethodWPAMixedCCMP         = "wpa-mixed+ccmp"
+	encryptionMethodWPAMixedTKIP         = "wpa-mixed+tkip"
+	encryptionMethodWPAMixedTKIPAES      = "wpa-mixed+tkip+aes"
+	encryptionMethodWPAMixedTKIPCCMP     = "wpa-mixed+tkip+ccmp"
+	encryptionMethodWPA                  = "wpa"
+	encryptionMethodWPAAES               = "wpa+aes"
+	encryptionMethodWPACCMP              = "wpa+ccmp"
+	encryptionMethodWPATKIP              = "wpa+tkip"
+	encryptionMethodWPATKIPAES           = "wpa+tkip+aes"
+	encryptionMethodWPATKIPCCMP          = "wpa+tkip+ccmp"
+	encryptionMethodWPA2                 = "wpa2"
+	encryptionMethodWPA2AES              = "wpa2+aes"
+	encryptionMethodWPA2CCMP             = "wpa2+ccmp"
+	encryptionMethodWPA2TKIP             = "wpa2+tkip"
+	encryptionMethodWPA2TKIPAES          = "wpa2+tkip+aes"
+	encryptionMethodWPA2TKIPCCMP         = "wpa2-mixed+tkip+ccmp"
+	encryptionMethodWPA3                 = "wpa3"
+	encryptionMethodWPA3Mixed            = "wpa3-mixed"
 	encryptionMethodUCIOption            = "encryption"
 
 	isolateClientsAttribute            = "isolate"
@@ -67,6 +88,17 @@ const (
 	ssidAttribute            = "ssid"
 	ssidAttributeDescription = "The broadcasted SSID of the wireless network. This is what actual clients will see the network as."
 	ssidUCIOption            = "ssid"
+
+	macFilterAttribute            = "macfilter"
+	macFilterAttributeDescription = "Specifies the MAC filter policy, `disable` to disable the filter, `allow` to treat it as whitelist or `deny` to treat it as blacklist."
+	macFilterUCIOption            = "macfilter"
+	macFilterMethodDisable        = "disable"
+	macFilterMethodAllow          = "allow"
+	macFilterMethodDeny           = "deny"
+
+	macListAttribute            = "maclist"
+	macListAttributeDescription = "List of MAC addresses to put into the mac filter."
+	macListUCIOption            = "maclist"
 
 	uciConfig = "wireless"
 	uciType   = "wifi-iface"
@@ -108,6 +140,26 @@ var (
 				encryptionMethodPSKTKIPCCMP,
 				encryptionMethodSAE,
 				encryptionMethodSAEMixed,
+				encryptionMethodWPAMixed,
+				encryptionMethodWPAMixedAES,
+				encryptionMethodWPAMixedCCMP,
+				encryptionMethodWPAMixedTKIP,
+				encryptionMethodWPAMixedTKIPAES,
+				encryptionMethodWPAMixedTKIPCCMP,
+				encryptionMethodWPA,
+				encryptionMethodWPAAES,
+				encryptionMethodWPACCMP,
+				encryptionMethodWPATKIP,
+				encryptionMethodWPATKIPAES,
+				encryptionMethodWPATKIPCCMP,
+				encryptionMethodWPA2,
+				encryptionMethodWPA2AES,
+				encryptionMethodWPA2CCMP,
+				encryptionMethodWPA2TKIP,
+				encryptionMethodWPA2TKIPAES,
+				encryptionMethodWPA2TKIPCCMP,
+				encryptionMethodWPA3,
+				encryptionMethodWPA3Mixed,
 			),
 		},
 	}
@@ -179,6 +231,8 @@ var (
 		modeAttribute:             modeSchemaAttribute,
 		networkAttribute:          networkSchemaAttribute,
 		ssidAttribute:             ssidSchemaAttribute,
+		macFilterAttribute:        macFilterSchemaAttribute,
+		macListAttribute:          macListSchemaAttribute,
 	}
 
 	ssidSchemaAttribute = lucirpcglue.StringSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
@@ -186,6 +240,30 @@ var (
 		ReadResponse:      lucirpcglue.ReadResponseOptionString(modelSetSSID, ssidAttribute, ssidUCIOption),
 		ResourceExistence: lucirpcglue.Required,
 		UpsertRequest:     lucirpcglue.UpsertRequestOptionString(modelGetSSID, ssidAttribute, ssidUCIOption),
+	}
+
+	macFilterSchemaAttribute = lucirpcglue.StringSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:       macFilterAttributeDescription,
+		ReadResponse:      lucirpcglue.ReadResponseOptionString(modelSetMacFilter, macFilterAttribute, macFilterUCIOption),
+		ResourceExistence: lucirpcglue.NoValidation,
+		UpsertRequest:     lucirpcglue.UpsertRequestOptionString(modelGetMacFilter, macFilterAttribute, macFilterUCIOption),
+		Validators: []validator.String{
+			stringvalidator.OneOf(
+				macFilterMethodDisable,
+				macFilterMethodAllow,
+				macFilterMethodDeny,
+			),
+		},
+	}
+
+	macListSchemaAttribute = lucirpcglue.ListStringSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:       macListAttributeDescription,
+		ReadResponse:      lucirpcglue.ReadResponseOptionListString(modelSetMacList, macListAttribute, macListUCIOption),
+		ResourceExistence: lucirpcglue.NoValidation,
+		UpsertRequest:     lucirpcglue.UpsertRequestOptionListString(modelGetMacList, macListAttribute, macListUCIOption),
+		Validators: []validator.List{
+			listvalidator.SizeAtLeast(1),
+		},
 	}
 )
 
@@ -219,6 +297,8 @@ type model struct {
 	Mode             types.String `tfsdk:"mode"`
 	Network          types.String `tfsdk:"network"`
 	SSID             types.String `tfsdk:"ssid"`
+	MacFilter        types.String `tfsdk:"macfilter"`
+	MacList          types.List   `tfsdk:"maclist"`
 }
 
 func modelGetDevice(m model) types.String           { return m.Device }
@@ -230,6 +310,8 @@ func modelGetKRACKWorkaround(m model) types.Bool    { return m.KRACKWorkaround }
 func modelGetMode(m model) types.String             { return m.Mode }
 func modelGetNetwork(m model) types.String          { return m.Network }
 func modelGetSSID(m model) types.String             { return m.SSID }
+func modelGetMacFilter(m model) types.String        { return m.MacFilter }
+func modelGetMacList(m model) types.List            { return m.MacList }
 
 func modelSetDevice(m *model, value types.String)           { m.Device = value }
 func modelSetEncryptionMethod(m *model, value types.String) { m.EncryptionMethod = value }
@@ -240,3 +322,5 @@ func modelSetKRACKWorkaround(m *model, value types.Bool)    { m.KRACKWorkaround 
 func modelSetMode(m *model, value types.String)             { m.Mode = value }
 func modelSetNetwork(m *model, value types.String)          { m.Network = value }
 func modelSetSSID(m *model, value types.String)             { m.SSID = value }
+func modelSetMacFilter(m *model, value types.String)        { m.MacFilter = value }
+func modelSetMacList(m *model, value types.List)            { m.MacList = value }

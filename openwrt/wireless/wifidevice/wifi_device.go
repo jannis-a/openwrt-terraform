@@ -28,8 +28,77 @@ const (
 	cellDensityVeryHigh             = 3
 
 	channelAttribute            = "channel"
-	channelAttributeDescription = `The wireless channel. Currently, only "auto" is supported.`
+	channelAttributeDescription = `The wireless channel.`
 	channelAuto                 = "auto"
+	channel1                    = "1"
+	channel2                    = "2"
+	channel3                    = "3"
+	channel4                    = "4"
+	channel5                    = "5"
+	channel6                    = "6"
+	channel7                    = "7"
+	channel8                    = "8"
+	channel9                    = "9"
+	channel10                   = "10"
+	channel11                   = "11"
+	channel12                   = "12"
+	channel13                   = "13"
+	channel14                   = "14"
+	channel32                   = "32"
+	channel36                   = "36"
+	channel38                   = "38"
+	channel40                   = "40"
+	channel42                   = "42"
+	channel44                   = "44"
+	channel46                   = "46"
+	channel48                   = "48"
+	channel50                   = "50"
+	channel52                   = "52"
+	channel54                   = "54"
+	channel56                   = "56"
+	channel58                   = "58"
+	channel60                   = "60"
+	channel62                   = "62"
+	channel64                   = "64"
+	channel68                   = "68"
+	channel96                   = "96"
+	channel100                  = "100"
+	channel102                  = "102"
+	channel104                  = "104"
+	channel106                  = "106"
+	channel108                  = "108"
+	channel110                  = "110"
+	channel112                  = "112"
+	channel114                  = "114"
+	channel116                  = "116"
+	channel118                  = "118"
+	channel120                  = "120"
+	channel122                  = "122"
+	channel124                  = "124"
+	channel126                  = "126"
+	channel128                  = "128"
+	channel132                  = "132"
+	channel134                  = "134"
+	channel136                  = "136"
+	channel138                  = "138"
+	channel140                  = "140"
+	channel142                  = "142"
+	channel144                  = "144"
+	channel149                  = "149"
+	channel151                  = "151"
+	channel153                  = "153"
+	channel155                  = "155"
+	channel157                  = "157"
+	channel159                  = "159"
+	channel161                  = "161"
+	channel163                  = "163"
+	channel165                  = "165"
+	channel167                  = "167"
+	channel169                  = "169"
+	channel171                  = "171"
+	channel173                  = "173"
+	channel175                  = "175"
+	channel177                  = "177"
 	channelUCIOption            = "channel"
 
 	countryCodeAttribute            = "country"
@@ -106,6 +175,75 @@ var (
 		Validators: []validator.String{
 			stringvalidator.OneOf(
 				channelAuto,
+				channel1,
+				channel2,
+				channel3,
+				channel4,
+				channel5,
+				channel6,
+				channel7,
+				channel8,
+				channel9,
+				channel10,
+				channel11,
+				channel12,
+				channel13,
+				channel14,
+				channel32,
+				channel36,
+				channel38,
+				channel40,
+				channel42,
+				channel44,
+				channel46,
+				channel48,
+				channel50,
+				channel52,
+				channel54,
+				channel56,
+				channel58,
+				channel60,
+				channel62,
+				channel64,
+				channel68,
+				channel96,
+				channel100,
+				channel102,
+				channel104,
+				channel106,
+				channel108,
+				channel110,
+				channel112,
+				channel114,
+				channel116,
+				channel118,
+				channel120,
+				channel122,
+				channel124,
+				channel126,
+				channel128,
+				channel132,
+				channel134,
+				channel136,
+				channel138,
+				channel140,
+				channel142,
+				channel144,
+				channel149,
+				channel151,
+				channel153,
+				channel155,
+				channel157,
+				channel159,
+				channel161,
+				channel163,
+				channel165,
+				channel167,
+				channel169,
+				channel171,
+				channel173,
+				channel175,
+				channel177,
 			),
 		},
 	}
