@@ -86,6 +86,94 @@ const (
 	requestingPrefixAuto                 = "auto"
 	requestingPrefixUCIOption            = "reqprefix"
 
+	ipv4AddressesAttribute            = "ipv4_addresses"
+	ipv4AddressesAttributeDescription = "IPv4 addresses assigned to the interface"
+	ipv4AddressesUCIOption            = "ipv4-address"
+
+	upAttribute            = "up"
+	upAttributeDescription = "Whether the interface is up"
+	upUCIOption            = "up"
+
+	pendingAttribute            = "pending"
+	pendingAttributeDescription = "Whether the interface is pending"
+	pendingUCIOption            = "pending"
+
+	availableAttribute            = "available"
+	availableAttributeDescription = "Whether the interface is available"
+	availableUCIOption            = "available"
+
+	autostartAttribute            = "autostart"
+	autostartAttributeDescription = "Whether the interface starts automatically"
+	autostartUCIOption            = "autostart"
+
+	dynamicAttribute            = "dynamic"
+	dynamicAttributeDescription = "Whether the interface is dynamically created"
+	dynamicUCIOption            = "dynamic"
+
+	uptimeAttribute            = "uptime"
+	uptimeAttributeDescription = "Time since the interface was brought up"
+	uptimeUCIOption            = "uptime"
+
+	l3DeviceAttribute            = "l3_device"
+	l3DeviceAttributeDescription = "Name of the layer 3 device"
+	l3DeviceUCIOption            = "l3_device"
+
+	ifnameAttribute            = "ifname"
+	ifnameAttributeDescription = "Name of the interface"
+	ifnameUCIOption            = "ifname"
+
+	updatedAttribute            = "updated"
+	updatedAttributeDescription = "Last update time"
+	updatedUCIOption            = "updated"
+
+	dnsMetricAttribute            = "dns_metric"
+	dnsMetricAttributeDescription = "DNS metric"
+	dnsMetricUCIOption            = "dns_metric"
+
+	dnsServerAttribute            = "dns_server"
+	dnsServerAttributeDescription = "DNS servers provided by the interface"
+	dnsServerUCIOption            = "dns-server"
+
+	dnsSearchAttribute            = "dns_search"
+	dnsSearchAttributeDescription = "DNS search domains"
+	dnsSearchUCIOption            = "dns-search"
+
+	ipv6PrefixAttribute            = "ipv6_prefix"
+	ipv6PrefixAttributeDescription = "IPv6 prefixes assigned to the interface"
+	ipv6PrefixUCIOption            = "ipv6-prefix"
+
+	ipv6PrefixAssignmentAttribute            = "ipv6_prefix_assignment"
+	ipv6PrefixAssignmentAttributeDescription = "IPv6 prefix assignments"
+	ipv6PrefixAssignmentUCIOption            = "ipv6-prefix-assignment"
+
+	routeAttribute            = "route"
+	routeAttributeDescription = "Routes associated with the interface"
+	routeUCIOption            = "route"
+
+	errorsAttribute            = "errors"
+	errorsAttributeDescription = "Errors reported by the interface"
+	errorsUCIOption            = "errors"
+
+	rxBytesAttribute            = "rx_bytes"
+	rxBytesAttributeDescription = "Number of received bytes"
+	rxBytesUCIOption            = "rx_bytes"
+
+	txBytesAttribute            = "tx_bytes"
+	txBytesAttributeDescription = "Number of transmitted bytes"
+	txBytesUCIOption            = "tx_bytes"
+
+	rxPacketsAttribute            = "rx_packets"
+	rxPacketsAttributeDescription = "Number of received packets"
+	rxPacketsUCIOption            = "rx_packets"
+
+	txPacketsAttribute            = "tx_packets"
+	txPacketsAttributeDescription = "Number of transmitted packets"
+	txPacketsUCIOption            = "tx_packets"
+
+	interfaceAttribute            = "interface"
+	interfaceAttributeDescription = "Interface name"
+	interfaceUCIOption            = "interface"
+
 	schemaDescription = "A logic network."
 
 	uciConfig = "network"
@@ -299,23 +387,199 @@ var (
 		},
 	}
 
+	ipv4AddressesSchemaAttribute = lucirpcglue.ListStringSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         ipv4AddressesAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionListString(modelSetIPv4Addresses, ipv4AddressesAttribute, ipv4AddressesUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
+	upSchemaAttribute = lucirpcglue.BoolSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         upAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionBool(modelSetUp, upAttribute, upUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
+	pendingSchemaAttribute = lucirpcglue.BoolSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         pendingAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionBool(modelSetPending, pendingAttribute, pendingUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
+	availableSchemaAttribute = lucirpcglue.BoolSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         availableAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionBool(modelSetAvailable, availableAttribute, availableUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
+	autostartSchemaAttribute = lucirpcglue.BoolSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         autostartAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionBool(modelSetAutostart, autostartAttribute, autostartUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
+	dynamicSchemaAttribute = lucirpcglue.BoolSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         dynamicAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionBool(modelSetDynamic, dynamicAttribute, dynamicUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
+	uptimeSchemaAttribute = lucirpcglue.Int64SchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         uptimeAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionInt64(modelSetUptime, uptimeAttribute, uptimeUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
+	l3DeviceSchemaAttribute = lucirpcglue.StringSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         l3DeviceAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionString(modelSetL3Device, l3DeviceAttribute, l3DeviceUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
+	ifnameSchemaAttribute = lucirpcglue.StringSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         ifnameAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionString(modelSetIfname, ifnameAttribute, ifnameUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
+	updatedSchemaAttribute = lucirpcglue.Int64SchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         updatedAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionInt64(modelSetUpdated, updatedAttribute, updatedUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
+	dnsMetricSchemaAttribute = lucirpcglue.Int64SchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         dnsMetricAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionInt64(modelSetDNSMetric, dnsMetricAttribute, dnsMetricUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
+	dnsServerSchemaAttribute = lucirpcglue.ListStringSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         dnsServerAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionListString(modelSetDNSServer, dnsServerAttribute, dnsServerUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
+	dnsSearchSchemaAttribute = lucirpcglue.ListStringSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         dnsSearchAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionListString(modelSetDNSSearch, dnsSearchAttribute, dnsSearchUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
+	ipv6PrefixSchemaAttribute = lucirpcglue.ListStringSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         ipv6PrefixAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionListString(modelSetIPv6Prefix, ipv6PrefixAttribute, ipv6PrefixUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
+	ipv6PrefixAssignmentSchemaAttribute = lucirpcglue.ListStringSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         ipv6PrefixAssignmentAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionListString(modelSetIPv6PrefixAssignment, ipv6PrefixAssignmentAttribute, ipv6PrefixAssignmentUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
+	routeSchemaAttribute = lucirpcglue.ListStringSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         routeAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionListString(modelSetRoute, routeAttribute, routeUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
+	errorsSchemaAttribute = lucirpcglue.ListStringSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         errorsAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionListString(modelSetErrors, errorsAttribute, errorsUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
+	rxBytesSchemaAttribute = lucirpcglue.Int64SchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         rxBytesAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionInt64(modelSetRxBytes, rxBytesAttribute, rxBytesUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
+	txBytesSchemaAttribute = lucirpcglue.Int64SchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         txBytesAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionInt64(modelSetTxBytes, txBytesAttribute, txBytesUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
+	rxPacketsSchemaAttribute = lucirpcglue.Int64SchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         rxPacketsAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionInt64(modelSetRxPackets, rxPacketsAttribute, rxPacketsUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
+	txPacketsSchemaAttribute = lucirpcglue.Int64SchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         txPacketsAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionInt64(modelSetTxPackets, txPacketsAttribute, txPacketsUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
+	interfaceSchemaAttribute = lucirpcglue.StringSchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
+		Description:         interfaceAttributeDescription,
+		ReadResponse:        lucirpcglue.ReadResponseOptionString(modelSetInterface, interfaceAttribute, interfaceUCIOption),
+		ResourceExistence:   lucirpcglue.ReadOnly,
+		DataSourceExistence: lucirpcglue.ReadOnly,
+	}
+
 	schemaAttributes = map[string]lucirpcglue.SchemaAttribute[model, lucirpc.Options, lucirpc.Options]{
-		bringUpOnBootAttribute:     bringUpOnBootSchemaAttribute,
-		deviceAttribute:            deviceSchemaAttribute,
-		disabledAttribute:          disabledSchemaAttribute,
-		dnsAttribute:               dnsSchemaAttribute,
-		gatewayAttribute:           gatewaySchemaAttribute,
-		ip6AssignAttribute:         ip6AssignSchemaAttribute,
-		ipAddressAttribute:         ipAddressSchemaAttribute,
-		macAddressAttribute:        macAddressSchemaAttribute,
-		mtuAttribute:               mtuSchemaAttribute,
-		metricAttribute:            metricSchemaAttribute,
-		netmaskAttribute:           netmaskSchemaAttribute,
-		peerDNSAttribute:           peerDNSSchemaAttribute,
-		protocolAttribute:          protocolSchemaAttribute,
-		requestingAddressAttribute: requestingAddressSchemaAttribute,
-		requestingPrefixAttribute:  requestingPrefixSchemaAttribute,
-		lucirpcglue.IdAttribute:    lucirpcglue.IdSchemaAttribute(modelGetId, modelSetId),
+		bringUpOnBootAttribute:        bringUpOnBootSchemaAttribute,
+		deviceAttribute:               deviceSchemaAttribute,
+		disabledAttribute:             disabledSchemaAttribute,
+		dnsAttribute:                  dnsSchemaAttribute,
+		gatewayAttribute:              gatewaySchemaAttribute,
+		ip6AssignAttribute:            ip6AssignSchemaAttribute,
+		ipAddressAttribute:            ipAddressSchemaAttribute,
+		macAddressAttribute:           macAddressSchemaAttribute,
+		mtuAttribute:                  mtuSchemaAttribute,
+		metricAttribute:               metricSchemaAttribute,
+		netmaskAttribute:              netmaskSchemaAttribute,
+		peerDNSAttribute:              peerDNSSchemaAttribute,
+		protocolAttribute:             protocolSchemaAttribute,
+		requestingAddressAttribute:    requestingAddressSchemaAttribute,
+		requestingPrefixAttribute:     requestingPrefixSchemaAttribute,
+		ipv4AddressesAttribute:        ipv4AddressesSchemaAttribute,
+		upAttribute:                   upSchemaAttribute,
+		pendingAttribute:              pendingSchemaAttribute,
+		availableAttribute:            availableSchemaAttribute,
+		autostartAttribute:            autostartSchemaAttribute,
+		dynamicAttribute:              dynamicSchemaAttribute,
+		uptimeAttribute:               uptimeSchemaAttribute,
+		l3DeviceAttribute:             l3DeviceSchemaAttribute,
+		ifnameAttribute:               ifnameSchemaAttribute,
+		updatedAttribute:              updatedSchemaAttribute,
+		dnsMetricAttribute:            dnsMetricSchemaAttribute,
+		dnsServerAttribute:            dnsServerSchemaAttribute,
+		dnsSearchAttribute:            dnsSearchSchemaAttribute,
+		ipv6PrefixAttribute:           ipv6PrefixSchemaAttribute,
+		ipv6PrefixAssignmentAttribute: ipv6PrefixAssignmentSchemaAttribute,
+		routeAttribute:                routeSchemaAttribute,
+		errorsAttribute:               errorsSchemaAttribute,
+		rxBytesAttribute:              rxBytesSchemaAttribute,
+		txBytesAttribute:              txBytesSchemaAttribute,
+		rxPacketsAttribute:            rxPacketsSchemaAttribute,
+		txPacketsAttribute:            txPacketsSchemaAttribute,
+		interfaceAttribute:            interfaceSchemaAttribute,
+		lucirpcglue.IdAttribute:       lucirpcglue.IdSchemaAttribute(modelGetId, modelSetId),
 	}
 )
 
