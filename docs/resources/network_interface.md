@@ -62,6 +62,31 @@ resource "openwrt_network_interface" "testing" {
 - `reqaddress` (String) Behavior for requesting address. Can only be one of "force", "try", or "none".
 - `reqprefix` (String) Behavior for requesting prefixes. Currently, only "auto" is supported.
 
+### Read-Only
+
+- `ipv4_addresses` (List of String) IPv4 addresses assigned to the interface
+- `up` (Boolean) Whether the interface is up
+- `pending` (Boolean) Whether the interface is pending
+- `available` (Boolean) Whether the interface is available
+- `autostart` (Boolean) Whether the interface starts automatically
+- `dynamic` (Boolean) Whether the interface is dynamically created
+- `uptime` (Number) Time since the interface was brought up
+- `l3_device` (String) Name of the layer 3 device
+- `ifname` (String) Name of the interface
+- `updated` (Number) Last update time
+- `dns_metric` (Number) DNS metric
+- `dns_server` (List of String) DNS servers provided by the interface
+- `dns_search` (List of String) DNS search domains
+- `ipv6_prefix` (List of String) IPv6 prefixes assigned to the interface
+- `ipv6_prefix_assignment` (List of String) IPv6 prefix assignments
+- `route` (List of String) Routes associated with the interface
+- `errors` (List of String) Errors reported by the interface
+- `rx_bytes` (Number) Number of received bytes
+- `tx_bytes` (Number) Number of transmitted bytes
+- `rx_packets` (Number) Number of received packets
+- `tx_packets` (Number) Number of transmitted packets
+- `interface` (String) Interface name
+
 ## Import
 
 Import is supported using the following syntax:
