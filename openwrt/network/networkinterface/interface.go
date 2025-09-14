@@ -340,54 +340,123 @@ func NewResource() resource.Resource {
 }
 
 type model struct {
-	BringUpOnBoot     types.Bool   `tfsdk:"auto"`
-	Device            types.String `tfsdk:"device"`
-	Disabled          types.Bool   `tfsdk:"disabled"`
-	DNS               types.List   `tfsdk:"dns"`
-	Gateway           types.String `tfsdk:"gateway"`
-	Id                types.String `tfsdk:"id"`
-	IP6Assign         types.Int64  `tfsdk:"ip6assign"`
-	IPAddress         types.String `tfsdk:"ipaddr"`
-	MacAddress        types.String `tfsdk:"macaddr"`
-	MTU               types.Int64  `tfsdk:"mtu"`
-	Netmask           types.String `tfsdk:"netmask"`
-	PeerDNS           types.Bool   `tfsdk:"peerdns"`
-	Protocol          types.String `tfsdk:"proto"`
-	RequestingAddress types.String `tfsdk:"reqaddress"`
-	RequestingPrefix  types.String `tfsdk:"reqprefix"`
-	Metric            types.Int64  `tfsdk:"metric"`
+	BringUpOnBoot        types.Bool   `tfsdk:"auto"`
+	Device               types.String `tfsdk:"device"`
+	Disabled             types.Bool   `tfsdk:"disabled"`
+	DNS                  types.List   `tfsdk:"dns"`
+	Gateway              types.String `tfsdk:"gateway"`
+	Id                   types.String `tfsdk:"id"`
+	IP6Assign            types.Int64  `tfsdk:"ip6assign"`
+	IPAddress            types.String `tfsdk:"ipaddr"`
+	MacAddress           types.String `tfsdk:"macaddr"`
+	MTU                  types.Int64  `tfsdk:"mtu"`
+	Netmask              types.String `tfsdk:"netmask"`
+	PeerDNS              types.Bool   `tfsdk:"peerdns"`
+	Protocol             types.String `tfsdk:"proto"`
+	RequestingAddress    types.String `tfsdk:"reqaddress"`
+	RequestingPrefix     types.String `tfsdk:"reqprefix"`
+	Metric               types.Int64  `tfsdk:"metric"`
+	IPv4Addresses        types.List   `tfsdk:"ipv4_addresses"`
+	Up                   types.Bool   `tfsdk:"up"`
+	Pending              types.Bool   `tfsdk:"pending"`
+	Available            types.Bool   `tfsdk:"available"`
+	Autostart            types.Bool   `tfsdk:"autostart"`
+	Dynamic              types.Bool   `tfsdk:"dynamic"`
+	Uptime               types.Int64  `tfsdk:"uptime"`
+	L3Device             types.String `tfsdk:"l3_device"`
+	Ifname               types.String `tfsdk:"ifname"`
+	Updated              types.Int64  `tfsdk:"updated"`
+	DNSMetric            types.Int64  `tfsdk:"dns_metric"`
+	DNSServer            types.List   `tfsdk:"dns_server"`
+	DNSSearch            types.List   `tfsdk:"dns_search"`
+	IPv6Prefix           types.List   `tfsdk:"ipv6_prefix"`
+	IPv6PrefixAssignment types.List   `tfsdk:"ipv6_prefix_assignment"`
+	Route                types.List   `tfsdk:"route"`
+	Data                 types.Map    `tfsdk:"data"`
+	Errors               types.List   `tfsdk:"errors"`
+	RxBytes              types.Int64  `tfsdk:"rx_bytes"`
+	TxBytes              types.Int64  `tfsdk:"tx_bytes"`
+	RxPackets            types.Int64  `tfsdk:"rx_packets"`
+	TxPackets            types.Int64  `tfsdk:"tx_packets"`
+	Interface            types.String `tfsdk:"interface"`
 }
 
-func modelGetMetric(m model) types.Int64             { return m.Metric }
-func modelGetBringUpOnBoot(m model) types.Bool       { return m.BringUpOnBoot }
-func modelGetDevice(m model) types.String            { return m.Device }
-func modelGetDisabled(m model) types.Bool            { return m.Disabled }
-func modelGetDNS(m model) types.List                 { return m.DNS }
-func modelGetGateway(m model) types.String           { return m.Gateway }
-func modelGetId(m model) types.String                { return m.Id }
-func modelGetIP6Assign(m model) types.Int64          { return m.IP6Assign }
-func modelGetIPAddress(m model) types.String         { return m.IPAddress }
-func modelGetMacAddress(m model) types.String        { return m.MacAddress }
-func modelGetMTU(m model) types.Int64                { return m.MTU }
-func modelGetNetmask(m model) types.String           { return m.Netmask }
-func modelGetPeerDNS(m model) types.Bool             { return m.PeerDNS }
-func modelGetProtocol(m model) types.String          { return m.Protocol }
-func modelGetRequestingAddress(m model) types.String { return m.RequestingAddress }
-func modelGetRequestingPrefix(m model) types.String  { return m.RequestingPrefix }
+func modelGetMetric(m model) types.Int64              { return m.Metric }
+func modelGetBringUpOnBoot(m model) types.Bool        { return m.BringUpOnBoot }
+func modelGetDevice(m model) types.String             { return m.Device }
+func modelGetDisabled(m model) types.Bool             { return m.Disabled }
+func modelGetDNS(m model) types.List                  { return m.DNS }
+func modelGetGateway(m model) types.String            { return m.Gateway }
+func modelGetId(m model) types.String                 { return m.Id }
+func modelGetIP6Assign(m model) types.Int64           { return m.IP6Assign }
+func modelGetIPAddress(m model) types.String          { return m.IPAddress }
+func modelGetMacAddress(m model) types.String         { return m.MacAddress }
+func modelGetMTU(m model) types.Int64                 { return m.MTU }
+func modelGetNetmask(m model) types.String            { return m.Netmask }
+func modelGetPeerDNS(m model) types.Bool              { return m.PeerDNS }
+func modelGetProtocol(m model) types.String           { return m.Protocol }
+func modelGetRequestingAddress(m model) types.String  { return m.RequestingAddress }
+func modelGetRequestingPrefix(m model) types.String   { return m.RequestingPrefix }
+func modelGetIPv4Addresses(m model) types.List        { return m.IPv4Addresses }
+func modelGetUp(m model) types.Bool                   { return m.Up }
+func modelGetPending(m model) types.Bool              { return m.Pending }
+func modelGetAvailable(m model) types.Bool            { return m.Available }
+func modelGetAutostart(m model) types.Bool            { return m.Autostart }
+func modelGetDynamic(m model) types.Bool              { return m.Dynamic }
+func modelGetUptime(m model) types.Int64              { return m.Uptime }
+func modelGetL3Device(m model) types.String           { return m.L3Device }
+func modelGetIfname(m model) types.String             { return m.Ifname }
+func modelGetUpdated(m model) types.Int64             { return m.Updated }
+func modelGetDNSMetric(m model) types.Int64           { return m.DNSMetric }
+func modelGetDNSServer(m model) types.List            { return m.DNSServer }
+func modelGetDNSSearch(m model) types.List            { return m.DNSSearch }
+func modelGetIPv6Prefix(m model) types.List           { return m.IPv6Prefix }
+func modelGetIPv6PrefixAssignment(m model) types.List { return m.IPv6PrefixAssignment }
+func modelGetRoute(m model) types.List                { return m.Route }
+func modelGetData(m model) types.Map                  { return m.Data }
+func modelGetErrors(m model) types.List               { return m.Errors }
+func modelGetRxBytes(m model) types.Int64             { return m.RxBytes }
+func modelGetTxBytes(m model) types.Int64             { return m.TxBytes }
+func modelGetRxPackets(m model) types.Int64           { return m.RxPackets }
+func modelGetTxPackets(m model) types.Int64           { return m.TxPackets }
+func modelGetInterface(m model) types.String          { return m.Interface }
 
-func modelSetMetric(m *model, value types.Int64)             { m.Metric = value }
-func modelSetBringUpOnBoot(m *model, value types.Bool)       { m.BringUpOnBoot = value }
-func modelSetDevice(m *model, value types.String)            { m.Device = value }
-func modelSetDisabled(m *model, value types.Bool)            { m.Disabled = value }
-func modelSetDNS(m *model, value types.List)                 { m.DNS = value }
-func modelSetGateway(m *model, value types.String)           { m.Gateway = value }
-func modelSetId(m *model, value types.String)                { m.Id = value }
-func modelSetIP6Assign(m *model, value types.Int64)          { m.IP6Assign = value }
-func modelSetIPAddress(m *model, value types.String)         { m.IPAddress = value }
-func modelSetMacAddress(m *model, value types.String)        { m.MacAddress = value }
-func modelSetMTU(m *model, value types.Int64)                { m.MTU = value }
-func modelSetNetmask(m *model, value types.String)           { m.Netmask = value }
-func modelSetPeerDNS(m *model, value types.Bool)             { m.PeerDNS = value }
-func modelSetProtocol(m *model, value types.String)          { m.Protocol = value }
-func modelSetRequestingAddress(m *model, value types.String) { m.RequestingAddress = value }
-func modelSetRequestingPrefix(m *model, value types.String)  { m.RequestingPrefix = value }
+func modelSetMetric(m *model, value types.Int64)              { m.Metric = value }
+func modelSetBringUpOnBoot(m *model, value types.Bool)        { m.BringUpOnBoot = value }
+func modelSetDevice(m *model, value types.String)             { m.Device = value }
+func modelSetDisabled(m *model, value types.Bool)             { m.Disabled = value }
+func modelSetDNS(m *model, value types.List)                  { m.DNS = value }
+func modelSetGateway(m *model, value types.String)            { m.Gateway = value }
+func modelSetId(m *model, value types.String)                 { m.Id = value }
+func modelSetIP6Assign(m *model, value types.Int64)           { m.IP6Assign = value }
+func modelSetIPAddress(m *model, value types.String)          { m.IPAddress = value }
+func modelSetMacAddress(m *model, value types.String)         { m.MacAddress = value }
+func modelSetMTU(m *model, value types.Int64)                 { m.MTU = value }
+func modelSetNetmask(m *model, value types.String)            { m.Netmask = value }
+func modelSetPeerDNS(m *model, value types.Bool)              { m.PeerDNS = value }
+func modelSetProtocol(m *model, value types.String)           { m.Protocol = value }
+func modelSetRequestingAddress(m *model, value types.String)  { m.RequestingAddress = value }
+func modelSetRequestingPrefix(m *model, value types.String)   { m.RequestingPrefix = value }
+func modelSetIPv4Addresses(m *model, value types.List)        { m.IPv4Addresses = value }
+func modelSetUp(m *model, value types.Bool)                   { m.Up = value }
+func modelSetPending(m *model, value types.Bool)              { m.Pending = value }
+func modelSetAvailable(m *model, value types.Bool)            { m.Available = value }
+func modelSetAutostart(m *model, value types.Bool)            { m.Autostart = value }
+func modelSetDynamic(m *model, value types.Bool)              { m.Dynamic = value }
+func modelSetUptime(m *model, value types.Int64)              { m.Uptime = value }
+func modelSetL3Device(m *model, value types.String)           { m.L3Device = value }
+func modelSetIfname(m *model, value types.String)             { m.Ifname = value }
+func modelSetUpdated(m *model, value types.Int64)             { m.Updated = value }
+func modelSetDNSMetric(m *model, value types.Int64)           { m.DNSMetric = value }
+func modelSetDNSServer(m *model, value types.List)            { m.DNSServer = value }
+func modelSetDNSSearch(m *model, value types.List)            { m.DNSSearch = value }
+func modelSetIPv6Prefix(m *model, value types.List)           { m.IPv6Prefix = value }
+func modelSetIPv6PrefixAssignment(m *model, value types.List) { m.IPv6PrefixAssignment = value }
+func modelSetRoute(m *model, value types.List)                { m.Route = value }
+func modelSetData(m *model, value types.Map)                  { m.Data = value }
+func modelSetErrors(m *model, value types.List)               { m.Errors = value }
+func modelSetRxBytes(m *model, value types.Int64)             { m.RxBytes = value }
+func modelSetTxBytes(m *model, value types.Int64)             { m.TxBytes = value }
+func modelSetRxPackets(m *model, value types.Int64)           { m.RxPackets = value }
+func modelSetTxPackets(m *model, value types.Int64)           { m.TxPackets = value }
+func modelSetInterface(m *model, value types.String)          { m.Interface = value }
